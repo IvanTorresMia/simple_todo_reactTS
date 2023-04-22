@@ -1,12 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthRoute from "./components/AuthRoute";
+import { Login } from "./pages/login/login";
+import { Home } from "./pages/home/home";
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/login"
+          element={
+            <AuthRoute>
+              <Login />
+            </AuthRoute>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <AuthRoute>
+              {" "}
+              <Home />
+            </AuthRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
