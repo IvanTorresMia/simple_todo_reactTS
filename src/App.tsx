@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthRoute from "./components/AuthRoute";
 import { Login } from "./pages/login/login";
 import { Home } from "./pages/home/home";
+import Layout from "./pages/layout/Layout";
+import { Deleted } from "./pages/deleted/deleted";
 
 function App() {
   return (
@@ -20,11 +22,13 @@ function App() {
           path="/"
           element={
             <AuthRoute>
-              {" "}
-              <Home />
+              <Layout />
             </AuthRoute>
           }
-        />
+        >
+          <Route index element={<Home />} />
+          <Route path="/deleted" element={<Deleted />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
