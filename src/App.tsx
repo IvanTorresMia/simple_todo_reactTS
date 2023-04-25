@@ -4,7 +4,8 @@ import AuthRoute from "./components/AuthRoute";
 import { Login } from "./pages/login/login";
 import { Home } from "./pages/home/home";
 import Layout from "./pages/layout/Layout";
-import { Deleted } from "./pages/deleted/deleted";
+import { Completed } from "./pages/completed/Completed";
+
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
           }
         >
           <Route index element={<Home />} />
-          <Route path="/deleted" element={<Deleted />} />
+          <Route path="/deleted" element={<Completed />} />
         </Route>
       </Routes>
     </BrowserRouter>
