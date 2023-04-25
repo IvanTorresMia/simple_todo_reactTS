@@ -6,6 +6,7 @@ import {
   FormLabel,
   Box,
 } from "@mui/material";
+import { useState } from "react";
 
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 
@@ -15,7 +16,8 @@ interface IProps {
   completed: boolean;
 }
 
-const ListTable = ({ title, body, completed }: IProps) => {
+const TodoItem = ({ title, body, completed }: IProps) => {
+  const [displayBody, setDisplayBody] = useState(false);
   const {
     handleSubmit,
     control,
@@ -61,6 +63,8 @@ const ListTable = ({ title, body, completed }: IProps) => {
                 helperText={errors.title?.message?.toString()}
                 name={field.name}
                 value={field.value}
+                onFocus={() => setDisplayBody(true)}
+                onBlur={() => setDisplayBody(false)}
                 onChange={(value) => {
                   field.onChange(value);
                 }}
@@ -69,24 +73,27 @@ const ListTable = ({ title, body, completed }: IProps) => {
           />
         </Grid>
         {/* body */}
-        <Grid display={"flex"} flexDirection={"column"} marginBottom={"10px"}>
-          <FormLabel>Body</FormLabel>
-          <Controller
-            control={control}
-            name="body"
-            rules={{ required: "This field is required" }}
-            render={({ field }) => (
-              <TextField
-                helperText={errors.body?.message?.toString()}
-                name={field.name}
-                value={field.value}
-                onChange={(value) => {
-                  field.onChange(value);
-                }}
-              />
-            )}
-          />
-        </Grid>
+        {displayBody ? (
+          <Grid display={"flex"} flexDirection={"column"} marginBottom={"10px"}>
+            <FormLabel>Body</FormLabel>
+            <Controller
+              control={control}
+              name="body"
+              rules={{ required: "This field is required" }}
+              render={({ field }) => (
+                <TextField
+                  helperText={errors.body?.message?.toString()}
+                  name={field.name}
+                  value={field.value}
+                  onChange={(value) => {
+                    field.onChange(value);
+                  }}
+                />
+              )}
+            />
+          </Grid>
+        ) : null}
+
         {/* completed */}
         <Grid
           display={"flex"}
@@ -122,4 +129,4 @@ const ListTable = ({ title, body, completed }: IProps) => {
   );
 };
 
-export default ListTable;
+export default TodoItem;
