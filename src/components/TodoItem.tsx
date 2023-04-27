@@ -14,6 +14,7 @@ interface IProps {
   title: string;
   body: string;
   completed: boolean;
+  company: string
 }
 
 const TodoItem = ({ title, body, completed }: IProps) => {
