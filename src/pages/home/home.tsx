@@ -14,6 +14,7 @@ import { useAuth } from "../../providers/authPorvider";
 import { todoType } from "../../types/todoType";
 import AddIcon from "@mui/icons-material/Add";
 import CreateModal from "../../components/CreateModal";
+import { SubmitHandler } from "react-hook-form";
 
 export function Home() {
   const db = getFirestore(app);
@@ -49,23 +50,20 @@ export function Home() {
     setOpen(true);
   };
 
-  const handleSubmit = () => {
-    setOpen(false);
-
-    if (key) {
-      console.log("add to existing list");
-    } else {
-      console.log("add to new list");
-    }
-  };
-
   return (
     <Box>
-      <Box padding={"20px"} display={"flex"} width={"100%"}>
+      <Box
+        padding={"20px"}
+        display={"flex"}
+        flexDirection={"row"}
+        flexWrap={"wrap"}
+        width={"100%"}
+      >
         {keys.map((key, i) => (
           <Box
             display={"flex"}
             flexDirection={"column"}
+            flexWrap={"wrap"}
             justifyContent={"space-between"}
             width={"100%"}
           >
@@ -116,12 +114,7 @@ export function Home() {
       >
         <AddIcon />
       </Fab>
-      <CreateModal
-        company={key}
-        companies={keys}
-        openModal={open}
-        handleSubmit={() => handleSubmit()}
-      />
+      <CreateModal company={key} companies={keys} openModal={open} />
     </Box>
   );
 }

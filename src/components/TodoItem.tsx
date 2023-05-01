@@ -6,19 +6,25 @@ import {
   FormLabel,
   Box,
 } from "@mui/material";
+import { Timestamp, collection, getFirestore, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { app } from "..";
+import { useAuth } from "../providers/authPorvider";
 
 interface IProps {
   title: string;
   body: string;
   completed: boolean;
-  company: string
+  company: string;
 }
 
 const TodoItem = ({ title, body, completed }: IProps) => {
   const [displayBody, setDisplayBody] = useState(false);
+  const db = getFirestore(app);
+  const user = useAuth();
+  const collectionRef = collection(db, "todos")
   const {
     handleSubmit,
     control,
@@ -31,9 +37,13 @@ const TodoItem = ({ title, body, completed }: IProps) => {
     },
   });
 
-  const handleSubmitTodo: SubmitHandler<any> = async (data) => {
+  const handleEditTodo: SubmitHandler<any> = async (data) => {
     console.log("hello");
     console.log(data);
+    const submitData = {
+      
+    }
+
   };
 
   return (
@@ -46,7 +56,7 @@ const TodoItem = ({ title, body, completed }: IProps) => {
       margin={"auto"}
       borderBottom={"0.5px solid grey"}
     >
-      <form onSubmit={handleSubmit(handleSubmitTodo)}>
+      <form onSubmit={handleSubmit(handleEditTodo)}>
         {/* Title */}
         <Grid
           display={"flex"}
@@ -65,7 +75,6 @@ const TodoItem = ({ title, body, completed }: IProps) => {
                 name={field.name}
                 value={field.value}
                 onFocus={() => setDisplayBody(true)}
-                onBlur={() => setDisplayBody(false)}
                 onChange={(value) => {
                   field.onChange(value);
                 }}
