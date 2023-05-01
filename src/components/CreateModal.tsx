@@ -34,9 +34,10 @@ interface IProps {
   company: string | undefined;
   companies: string[] | [];
   openModal: boolean;
+  closeModal: () => void;
 }
 
-const CreateModal = ({ company, companies, openModal }: IProps) => {
+const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
   const user = useAuth();
   const db = getFirestore(app);
   const collectionRef = collection(db, "todos");
@@ -58,6 +59,7 @@ const CreateModal = ({ company, companies, openModal }: IProps) => {
     };
 
     await addDoc(collectionRef, submitData);
+    closeModal();
   };
 
   return (

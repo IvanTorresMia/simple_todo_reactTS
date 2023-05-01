@@ -90,11 +90,6 @@ export function Home() {
                 </>
               ))}
             </Box>
-            {/* <Box textAlign={"center"}>
-              <Button onClick={() => addNewTodo(key)} variant="contained">
-                Add new
-              </Button>
-            </Box> */}
           </Box>
         ))}
       </Box>
@@ -110,7 +105,12 @@ export function Home() {
       >
         <AddIcon />
       </Fab>
-      <CreateModal company={key} companies={keys} openModal={open} />
+      <CreateModal
+        company={key}
+        companies={keys}
+        openModal={open}
+        closeModal={() => setOpen(false)}
+      />
     </Box>
   );
 }
