@@ -1,6 +1,5 @@
 import {
   Button,
-  FormLabel,
   InputLabel,
   MenuItem,
   Modal,
@@ -14,7 +13,7 @@ import {
   collection,
   getFirestore,
 } from "firebase/firestore";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useAuth } from "../providers/authPorvider";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { app } from "..";
@@ -38,7 +37,6 @@ interface IProps {
 }
 
 const CreateModal = ({ company, companies, openModal }: IProps) => {
-  const [disabled, setDisabled] = useState<boolean>(false);
   const user = useAuth();
   const db = getFirestore(app);
   const collectionRef = collection(db, "todos");
@@ -50,9 +48,6 @@ const CreateModal = ({ company, companies, openModal }: IProps) => {
   } = useForm();
 
   const handleSubmitTodo: SubmitHandler<any> = async (data) => {
-    console.log("hello");
-    console.log(data);
-
     const submitData = {
       title: data.title,
       body: data.body,

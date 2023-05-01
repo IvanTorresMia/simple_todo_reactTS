@@ -1,4 +1,4 @@
-import { Box, Typography, Fab, Button } from "@mui/material";
+import { Box, Typography, Fab } from "@mui/material";
 import TodoItem from "../../components/TodoItem";
 
 import {
@@ -14,7 +14,6 @@ import { useAuth } from "../../providers/authPorvider";
 import { todoType } from "../../types/todoType";
 import AddIcon from "@mui/icons-material/Add";
 import CreateModal from "../../components/CreateModal";
-import { SubmitHandler } from "react-hook-form";
 
 export function Home() {
   const db = getFirestore(app);
@@ -31,8 +30,12 @@ export function Home() {
       const companies: string[] = [];
       for (const todo of snapshot.docs) {
         const data = { ...(todo.data() as any), id: todo.id };
-        list.push(data);
-        if (!companies.includes(data.company)) {
+        if (!data.completed) {
+          list.push(data);
+        }
+
+        if (!companies.includes(data.company) && !data.completed) {
+          console.log(data.company);
           companies.push(data.company);
         }
       }
@@ -56,7 +59,6 @@ export function Home() {
         padding={"20px"}
         display={"flex"}
         flexDirection={"row"}
-        flexWrap={"wrap"}
         width={"100%"}
       >
         {keys.map((key, i) => (
@@ -83,22 +85,16 @@ export function Home() {
               {todos.map((todo, i) => (
                 <>
                   {todo?.company === key ? (
-                    <TodoItem
-                      key={i}
-                      title={todo.title}
-                      body={todo.body}
-                      completed={todo.completed}
-                      company={todo.company}
-                    />
+                    <TodoItem key={i} todoData={todo} />
                   ) : null}
                 </>
               ))}
             </Box>
-            <Box textAlign={"center"}>
+            {/* <Box textAlign={"center"}>
               <Button onClick={() => addNewTodo(key)} variant="contained">
                 Add new
               </Button>
-            </Box>
+            </Box> */}
           </Box>
         ))}
       </Box>

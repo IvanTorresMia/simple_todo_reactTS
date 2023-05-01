@@ -7,4 +7,5 @@ export type todoType = {
   created: Timestamp;
   user: string;
   company: string;
+  id: string;
 };

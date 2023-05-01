@@ -6,44 +6,46 @@ import {
   FormLabel,
   Box,
 } from "@mui/material";
-import { Timestamp, collection, getFirestore, updateDoc } from "firebase/firestore";
+import { Timestamp, doc, getFirestore, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { app } from "..";
 import { useAuth } from "../providers/authPorvider";
+import { todoType } from "../types/todoType";
 
 interface IProps {
-  title: string;
-  body: string;
-  completed: boolean;
-  company: string;
+  todoData: todoType;
 }
 
-const TodoItem = ({ title, body, completed }: IProps) => {
+const TodoItem = ({ todoData }: IProps) => {
   const [displayBody, setDisplayBody] = useState(false);
   const db = getFirestore(app);
   const user = useAuth();
-  const collectionRef = collection(db, "todos")
+
   const {
     handleSubmit,
     control,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      title: title,
-      body: body,
-      completed: completed,
+      title: todoData.title,
+      body: todoData.body,
+      completed: todoData.completed,
     },
   });
 
   const handleEditTodo: SubmitHandler<any> = async (data) => {
-    console.log("hello");
-    console.log(data);
     const submitData = {
-      
-    }
+      title: data.title,
+      body: data.body,
+      company: todoData.company,
+      completed: data.completed,
+      created: Timestamp.fromDate(new Date()),
+      user: user.user,
+    };
 
+    await updateDoc(doc(db, "todos", todoData.id), submitData);
   };
 
   return (
