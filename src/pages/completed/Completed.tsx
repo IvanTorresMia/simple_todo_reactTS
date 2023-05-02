@@ -12,6 +12,7 @@ import {
 import { todoType } from "../../types/todoType";
 import TodoItem from "../../components/TodoItem";
 import styles from "../../theme/main.module.css";
+import TodoContainer from "../../components/TodoContainer";
 
 export const Completed = () => {
   const db = getFirestore(app);
@@ -46,55 +47,5 @@ export const Completed = () => {
     return () => saveUseEffect();
   }, [saveUseEffect]);
 
-  return (
-    <Box>
-      <Box padding={"30px"}>
-        <Typography
-          variant="h3"
-          color={`${styles.textBlue}`}
-          textAlign={"center"}
-        >
-          Completed Tasks
-        </Typography>
-      </Box>
-
-      <Box
-        display={"flex"}
-        flexWrap={"wrap"}
-        flexDirection={"row"}
-        width={"100%"}
-      >
-        {keys.map((key, i) => (
-          <Box
-            key={i}
-            display={"flex"}
-            flexDirection={"column"}
-            flexWrap={"wrap"}
-            justifyContent={"space-between"}
-            width={"80%"}
-            margin={"auto"}
-            marginBottom={"30px"}
-          >
-            <Box padding={"20px"} width={"100%"}>
-              <Typography
-                marginBottom={"10px"}
-                textAlign={"center"}
-                variant="h5"
-                color="ThreeDShadow"
-              >
-                {key}
-              </Typography>
-              {todos.map((todo, i) => (
-                <>
-                  {todo?.company === key ? (
-                    <TodoItem key={i} todoData={todo} />
-                  ) : null}
-                </>
-              ))}
-            </Box>
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
+  return <TodoContainer keys={keys} todos={todos} complete={true} />;
 };

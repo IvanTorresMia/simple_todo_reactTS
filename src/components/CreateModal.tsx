@@ -38,13 +38,12 @@ const style = {
   pb: 3,
 };
 interface IProps {
-  company: string | undefined;
   companies: string[] | [];
   openModal: boolean;
   closeModal: () => void;
 }
 
-const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
+const CreateModal = ({ companies, openModal, closeModal }: IProps) => {
   const user = useAuth();
   const db = getFirestore(app);
   const collectionRef = collection(db, "todos");
