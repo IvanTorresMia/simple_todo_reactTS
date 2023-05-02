@@ -15,16 +15,21 @@ const Layout: React.FunctionComponent = () => {
         justifyContent={"space-between"}
         className={`${styles.mainBackground} ${styles.colorWhite}`}
       >
-        <Typography variant="h3">Simple list</Typography>
-        <Link to={"/deleted"}>
-          <Box height={"100%"} display={"flex"}>
-            <Button variant="text">Deleted</Button>
-            <Button variant="text">Other Option</Button>
-            <Button onClick={() => signOut(auth)} variant="outlined">
-              Sign out
-            </Button>
-          </Box>
+        <Link to={"/"}>
+          <Typography color={"#fff"} variant="h3">
+            Simple list
+          </Typography>
         </Link>
+
+        <Box height={"100%"} display={"flex"}>
+          <Link to={"/completed"}>
+            <Button variant="text">Completed</Button>
+          </Link>
+          <Button variant="text">Other Option</Button>
+          <Button onClick={() => signOut(auth)} variant="outlined">
+            Sign out
+          </Button>
+        </Box>
       </Box>
       <Box>
         <Outlet />

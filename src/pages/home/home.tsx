@@ -63,6 +63,7 @@ export function Home() {
       >
         {keys.map((key, i) => (
           <Box
+            key={i}
             display={"flex"}
             flexDirection={"column"}
             flexWrap={"wrap"}
@@ -70,7 +71,6 @@ export function Home() {
             width={"100%"}
           >
             <Box
-              key={i}
               borderRight={"0.5px solid grey"}
               padding={"20px"}
               width={"100%"}

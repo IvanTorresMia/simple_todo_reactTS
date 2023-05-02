@@ -19,7 +19,6 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
     const AuthCheck = auth.onAuthStateChanged((user) => {
       if (user) {
         setLoading(false);
-        navigate("/");
       } else {
         navigate("/login");
       }

@@ -15,7 +15,12 @@ import {
 } from "firebase/firestore";
 import React from "react";
 import { useAuth } from "../providers/authPorvider";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import { app } from "..";
 
 const style = {
@@ -48,7 +53,7 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmitTodo: SubmitHandler<any> = async (data) => {
+  const handleSubmitTodo: SubmitHandler<FieldValues> = async (data) => {
     const submitData = {
       title: data.title,
       body: data.body,

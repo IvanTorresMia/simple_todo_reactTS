@@ -28,7 +28,7 @@ function App() {
           }
         >
           <Route index element={<Home />} />
-          <Route path="/deleted" element={<Completed />} />
+          <Route path="/completed" element={<Completed />} />
         </Route>
       </Routes>
     </BrowserRouter>

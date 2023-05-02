@@ -6,10 +6,21 @@ import {
   FormLabel,
   Box,
 } from "@mui/material";
-import { Timestamp, doc, getFirestore, updateDoc } from "firebase/firestore";
-import { useState } from "react";
+import {
+  Timestamp,
+  deleteDoc,
+  doc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
+import { useCallback, useState } from "react";
 
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  FieldValues,
+} from "react-hook-form";
 import { app } from "..";
 import { useAuth } from "../providers/authPorvider";
 import { todoType } from "../types/todoType";
@@ -19,9 +30,10 @@ interface IProps {
 }
 
 const TodoItem = ({ todoData }: IProps) => {
-  const [displayBody, setDisplayBody] = useState(false);
+  const [displayBody, setDisplayBody] = useState<boolean>(false);
   const db = getFirestore(app);
   const user = useAuth();
+  const docRef = doc(db, "todos", todoData.id);
 
   const {
     handleSubmit,
@@ -35,7 +47,7 @@ const TodoItem = ({ todoData }: IProps) => {
     },
   });
 
-  const handleEditTodo: SubmitHandler<any> = async (data) => {
+  const handleEditTodo: SubmitHandler<FieldValues> = async (data) => {
     const submitData = {
       title: data.title,
       body: data.body,
@@ -47,6 +59,10 @@ const TodoItem = ({ todoData }: IProps) => {
 
     await updateDoc(doc(db, "todos", todoData.id), submitData);
   };
+
+  const handleDelete = useCallback(async () => {
+    await deleteDoc(docRef);
+  }, []);
 
   return (
     <Grid
@@ -123,6 +139,7 @@ const TodoItem = ({ todoData }: IProps) => {
                 <Checkbox
                   name={field.name}
                   value={field.value}
+                  defaultChecked={todoData.completed}
                   onChange={(value) => {
                     field.onChange(value);
                   }}
@@ -136,6 +153,15 @@ const TodoItem = ({ todoData }: IProps) => {
             </Button>
           </Box>
         </Grid>
+        <Box>
+          {todoData.completed ? (
+            <Box marginBottom={"20px"}>
+              <Button onClick={handleDelete} color="error" variant="outlined">
+                Delete
+              </Button>
+            </Box>
+          ) : null}
+        </Box>
       </form>
     </Grid>
   );
