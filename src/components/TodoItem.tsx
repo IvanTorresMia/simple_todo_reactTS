@@ -67,11 +67,10 @@ const TodoItem = ({ todoData }: IProps) => {
   return (
     <Grid
       display={"flex"}
-      justifyContent={"center"}
+      justifyContent={"space-between"}
       marginBottom={"30px"}
-      width={"50%"}
+      width={"100%"}
       flexDirection={"column"}
-      margin={"auto"}
       borderBottom={"0.5px solid grey"}
     >
       <form onSubmit={handleSubmit(handleEditTodo)}>

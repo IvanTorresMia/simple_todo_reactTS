@@ -11,6 +11,7 @@ import {
 } from "firebase/firestore";
 import { todoType } from "../../types/todoType";
 import TodoItem from "../../components/TodoItem";
+import styles from "../../theme/main.module.css";
 
 export const Completed = () => {
   const db = getFirestore(app);
@@ -47,9 +48,19 @@ export const Completed = () => {
 
   return (
     <Box>
+      <Box padding={"30px"}>
+        <Typography
+          variant="h3"
+          color={`${styles.textBlue}`}
+          textAlign={"center"}
+        >
+          Completed Tasks
+        </Typography>
+      </Box>
+
       <Box
-        padding={"20px"}
         display={"flex"}
+        flexWrap={"wrap"}
         flexDirection={"row"}
         width={"100%"}
       >
@@ -60,17 +71,16 @@ export const Completed = () => {
             flexDirection={"column"}
             flexWrap={"wrap"}
             justifyContent={"space-between"}
-            width={"100%"}
+            width={"80%"}
+            margin={"auto"}
+            marginBottom={"30px"}
           >
-            <Box
-              borderRight={"0.5px solid grey"}
-              padding={"20px"}
-              width={"100%"}
-            >
+            <Box padding={"20px"} width={"100%"}>
               <Typography
                 marginBottom={"10px"}
                 textAlign={"center"}
-                variant="subtitle1"
+                variant="h5"
+                color="ThreeDShadow"
               >
                 {key}
               </Typography>

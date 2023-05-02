@@ -14,6 +14,7 @@ import { useAuth } from "../../providers/authPorvider";
 import { todoType } from "../../types/todoType";
 import AddIcon from "@mui/icons-material/Add";
 import CreateModal from "../../components/CreateModal";
+import styles from "../../theme/main.module.css";
 
 export function Home() {
   const db = getFirestore(app);
@@ -55,9 +56,18 @@ export function Home() {
 
   return (
     <Box>
+      <Box padding={"30px"}>
+        <Typography
+          variant="h3"
+          color={`${styles.textBlue}`}
+          textAlign={"center"}
+        >
+          Incomplete Tasks
+        </Typography>
+      </Box>
       <Box
-        padding={"20px"}
         display={"flex"}
+        flexWrap={"wrap"}
         flexDirection={"row"}
         width={"100%"}
       >
@@ -68,17 +78,16 @@ export function Home() {
             flexDirection={"column"}
             flexWrap={"wrap"}
             justifyContent={"space-between"}
-            width={"100%"}
+            width={"80%"}
+            margin={"auto"}
+            marginBottom={"30px"}
           >
-            <Box
-              borderRight={"0.5px solid grey"}
-              padding={"20px"}
-              width={"100%"}
-            >
+            <Box padding={"20px"} width={"100%"}>
               <Typography
                 marginBottom={"10px"}
                 textAlign={"center"}
-                variant="subtitle1"
+                variant="h5"
+                color="ThreeDShadow"
               >
                 {key}
               </Typography>
@@ -95,9 +104,10 @@ export function Home() {
       </Box>
       <Fab
         style={{
-          position: "absolute",
+          position: "sticky",
           bottom: 16,
-          right: 16,
+          right: 20,
+          left: 16,
         }}
         color="primary"
         onClick={() => addNewTodo(undefined)}

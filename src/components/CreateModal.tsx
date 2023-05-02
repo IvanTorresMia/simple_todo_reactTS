@@ -5,6 +5,7 @@ import {
   Modal,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import {
@@ -31,6 +32,7 @@ const style = {
   width: 400,
   boxShadow: 24,
   backgroundColor: "white",
+  borderRadius: "10px",
   pt: 2,
   px: 4,
   pb: 3,
@@ -81,7 +83,9 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
             flexDirection={"column"}
             justifyContent={"space-between"}
           >
-            <h2 id="child-modal-title">Simple List</h2>
+            <Typography marginBottom={"40px"} variant="h5">
+              Create a new todo
+            </Typography>
             <Box
               display={"flex"}
               justifyContent={"space-between"}
@@ -90,7 +94,7 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
               {companies.length === 0 ? null : (
                 <Box>
                   <InputLabel id="demo-simple-select-label">
-                    Companies
+                    Select Existing Company
                   </InputLabel>
                   <Controller
                     control={control}
@@ -119,8 +123,11 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
                   />
                 </Box>
               )}
+
               <Box>
-                <InputLabel id="demo-simple-select-label">Company</InputLabel>
+                <InputLabel id="demo-simple-select-label">
+                  Add new company
+                </InputLabel>
                 <Controller
                   control={control}
                   name="company"
@@ -139,7 +146,7 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
               </Box>
             </Box>
 
-            <Box marginBottom={"20px"}>
+            <Box paddingBottom={"40px"}>
               <InputLabel id="demo-simple-select-label">Title</InputLabel>
               <Controller
                 control={control}
@@ -147,6 +154,7 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
                 rules={{ required: false }}
                 render={({ field }) => (
                   <TextField
+                    style={{ marginBottom: "20px" }}
                     name={field.name}
                     value={field.value}
                     onChange={(value) => {
@@ -173,10 +181,14 @@ const CreateModal = ({ company, companies, openModal, closeModal }: IProps) => {
                 )}
               />
             </Box>
-
-            <Button type="submit" variant="contained">
-              Submit
-            </Button>
+            <Box display={"flex"} justifyContent={"space-between"}>
+              <Button type="button" variant="outlined" onClick={closeModal}>
+                Cancel
+              </Button>
+              <Button type="submit" variant="contained">
+                Submit
+              </Button>
+            </Box>
           </Box>
         </form>
       </Modal>
