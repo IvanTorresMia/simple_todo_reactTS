@@ -62,7 +62,7 @@ const TodoItem = ({ todoData }: IProps) => {
 
   const handleDelete = useCallback(async () => {
     await deleteDoc(docRef);
-  }, []);
+  }, [docRef]);
 
   return (
     <Grid
