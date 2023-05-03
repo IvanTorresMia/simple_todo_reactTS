@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { app } from "../..";
 import { useAuth } from "../../providers/authPorvider";
 import {
@@ -10,8 +9,6 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { todoType } from "../../types/todoType";
-import TodoItem from "../../components/TodoItem";
-import styles from "../../theme/main.module.css";
 import TodoContainer from "../../components/TodoContainer";
 
 export const Completed = () => {
